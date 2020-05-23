@@ -38,27 +38,28 @@ public class DoctorRepositoryJDBCImpl implements DoctorRepository {
 	public void saveDoctorDetails(DoctorDetail doctorDetail) {
 		
 		// insert query to save doctor detail
-		String doctorInsertQuery = "INSERT INTO DOCTOR (DOCTORID, NAME, PHONE_NO, EMAIL, DEPARTMENT, "
-				+ "ADDRESS, QUALIFICATION, SPECIALIST, YEAR_OF_EXPERIRENCE, DOB, PASSWORD, GENDER, STATUS)"
-				+ "VALUES (?,?,?,?,?,?,?,?,?,TO_DATE(?,'YYYY:MM:dd:HH24:MI:SS'),?,?,?)";
+		String doctorInsertQuery = "INSERT INTO DOCTOR (DOCTORID,NAME,PHONE_NO,EMAIL,DEPARTMENT,"
+				+ "QUALIFICATION,SPECIALIST,YEAR_OF_EXPERIRENCE,DOB,PASSWORD,GENDER,STATUS,ADDRESS)"
+				+ "VALUES (?,?,?,?,?,?,?,?,TO_DATE('2020:05:23:16:35:30','YYYY:MM:dd:HH24:MI:SS'),?,?,?,?)";
 		
 		List<Object> sqlParameters = new ArrayList<>();
 		
-		sqlParameters.add(doctorDetail.getDoctorId());
-		sqlParameters.add(doctorDetail.getDoctorName());
-		sqlParameters.add(doctorDetail.getMobileNo());
-		sqlParameters.add(doctorDetail.getEmail());
-		sqlParameters.add(doctorDetail.getDepartment());
-		sqlParameters.add(doctorDetail.getAddress());
-		sqlParameters.add(doctorDetail.getQualification());
-		sqlParameters.add(doctorDetail.getSpecialist());
-		sqlParameters.add(doctorDetail.getYearOfExperience());
-		sqlParameters.add(doctorDetail.getDob().format(DateTimeFormatter.ofPattern(DATE_FORMAT)));
-		sqlParameters.add(doctorDetail.getPassword());
-		sqlParameters.add(doctorDetail.getGender());
-		sqlParameters.add(doctorDetail.getStatus());
-		
-		 logger.debug("Executing doctor insert query: {} with params : {}", doctorInsertQuery, sqlParameters.toArray());
+		sqlParameters.add(1);
+		sqlParameters.add("demo");
+		sqlParameters.add("demo");
+		sqlParameters.add("demo");
+		sqlParameters.add("demo");
+		sqlParameters.add("demo");
+		sqlParameters.add("demo");
+		sqlParameters.add(1);
+		sqlParameters.add("demo");
+		sqlParameters.add('m');
+		sqlParameters.add(1);
+		sqlParameters.add("demo");
+		for(Object i:sqlParameters.toArray()){
+			System.out.println(i);
+		}
+		 logger.debug("Executing doctor insert query: {} with params : [{}]", doctorInsertQuery, sqlParameters.toArray());
 
 		jdbcTemplate.update(doctorInsertQuery, sqlParameters.toArray());
 	}
