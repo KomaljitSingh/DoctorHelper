@@ -15,7 +15,6 @@ public class DoctorDetail {
 	private String email;
 	private ZonedDateTime dob;
 	private String department;
-	private int experience;
 	private String qualification;
 	private String password;
 	private Gender gender;
@@ -33,7 +32,6 @@ public class DoctorDetail {
 	 * @param email
 	 * @param dob
 	 * @param department
-	 * @param experience
 	 * @param qualification
 	 * @param password
 	 * @param gender
@@ -42,8 +40,8 @@ public class DoctorDetail {
 	 * @param specialist
 	 * @param yearOfExperience
 	 */
-	public DoctorDetail(long doctorId, String doctorName, String mobileNo, String email, ZonedDateTime dob, String department,
-			int experience, String qualification, String password, Gender gender, int status, Address address,
+	public DoctorDetail(long doctorId, String doctorName, String mobileNo, String email, ZonedDateTime dob,
+			String department, String qualification, String password, Gender gender, int status, Address address,
 			String specialist, int yearOfExperience) {
 		super();
 		this.doctorId = doctorId;
@@ -52,7 +50,6 @@ public class DoctorDetail {
 		this.email = email;
 		this.dob = dob;
 		this.department = department;
-		this.experience = experience;
 		this.qualification = qualification;
 		this.password = password;
 		this.gender = gender;
@@ -110,14 +107,6 @@ public class DoctorDetail {
 	
 	public void setDepartment(String department) {
 		this.department = department;
-	}
-	
-	public int getExperience() {
-		return experience;
-	}
-	
-	public void setExperience(int experience) {
-		this.experience = experience;
 	}
 	
 	public String getQualification() {
@@ -179,9 +168,8 @@ public class DoctorDetail {
 	@Override
 	public String toString() {
 		return "DoctorDetail [doctorId=" + doctorId + ", doctorName=" + doctorName + ", mobileNo=" + mobileNo
-				+ ", email=" + email + ", dob=" + dob + ", department=" + department + ", experience=" + experience
-				+ ", qualification=" + qualification + ", password=" + password + ", gender=" + gender + ", status="
-				+ status + ", address=" + address + ", Specialist=" + Specialist + ", yearOfExperience="
-				+ yearOfExperience + "]";
+				+ ", email=" + email + ", dob=" + dob + ", department=" + department + ", qualification="
+				+ qualification + ", password=" + password + ", gender=" + gender + ", status=" + status + ", address="
+				+ address + ", Specialist=" + Specialist + ", yearOfExperience=" + yearOfExperience + "]";
 	}
 }

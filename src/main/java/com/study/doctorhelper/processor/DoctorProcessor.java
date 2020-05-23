@@ -1,49 +1,43 @@
 package com.study.doctorhelper.processor;
 
-import java.time.ZonedDateTime;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.study.doctorhelper.model.Address;
+import com.study.doctorhelper.controller.DoctorController;
 import com.study.doctorhelper.model.DoctorDetail;
-import com.study.doctorhelper.model.Gender;
 import com.study.doctorhelper.service.DoctorRepository;
 
+/**
+ * This class is built to maintain all the doctor detail processing orchestration and
+ * business logic. It represents the internal API for doctor-helper service.
+ *
+ * @author Komaljit.Singh
+ *
+ */
 @Service
 public class DoctorProcessor {
 
+	private static final Logger logger = LoggerFactory.getLogger(DoctorController.class);
+	
 	@Autowired
-	private DoctorRepository doctorRepo;
+	private DoctorRepository doctorRepository;
 
-	public DoctorProcessor(DoctorRepository doctorRepo) {
+	public DoctorProcessor(DoctorRepository doctorRepository) {
 		
-		this.doctorRepo = doctorRepo;
+		this.doctorRepository = doctorRepository;
 	}
 	
-	public void testRepo(){
-		DoctorDetail doctorDetail = new DoctorDetail();
-		doctorDetail.setDepartment("IT");
-		doctorDetail.setDob(ZonedDateTime.now());
-		doctorDetail.setDoctorId(12);
-		doctorDetail.setDoctorName("Sahil");
-		doctorDetail.setEmail("demo");
-		doctorDetail.setExperience(1);
-		doctorDetail.setGender(Gender.MALE);
-		doctorDetail.setMobileNo("demo");
-		doctorDetail.setPassword("demo");
-		doctorDetail.setQualification("demo");
-		doctorDetail.setSpecialist("demo");
-		doctorDetail.setStatus(1);
-		doctorDetail.setYearOfExperience(1);
-		Address address = new Address();
-		address.setCity("demo");
-		address.setCountry("demo");
-		address.setPincode(12);
-		address.setState("demo");
-		address.setStreetLine("demo");
-		doctorDetail.setAddress(address);
+	/**
+	 * Method to process the doctor details to save.
+	 * 
+	 * @param doctorDetail
+	 */
+	public void saveDoctorDetail(DoctorDetail doctorDetail){
 		
-		doctorRepo.saveDoctorDetails(doctorDetail);
+		logger.info("save doctor details is called with request as: {} ",doctorDetail);
+		
+		doctorRepository.saveDoctorDetails(doctorDetail);
 	}
 }
