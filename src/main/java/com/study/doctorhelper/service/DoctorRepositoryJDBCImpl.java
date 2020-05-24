@@ -66,5 +66,22 @@ public class DoctorRepositoryJDBCImpl implements DoctorRepository {
 
 		jdbcTemplate.update(doctorInsertQuery, sqlParameters.toArray());
 	}
+	
+	public List<DoctorDetail> getDoctorDetail(int doctorId,String department,int yearOfExp){
+		String doctorSelectQuery = "SELECT DOCTORID,NAME,PHONE_NO,EMAIL,DEPARTMENT,"
+		+ "QUALIFICATION,SPECIALIST,YEAR_OF_EXPERIRENCE,DOB,PASSWORD,GENDER,STATUS,ADDRESS FROM DOCTOR"
+		+ " WHERE DOCTORID = ? AND DEPARTMENT = ? AND YEAR_OF_EXPERIRENCE = ? ";
+		
+		List<Object> sqlParameters = new ArrayList<>();
+		sqlParameters.add(doctorId);
+		sqlParameters.add(department);
+		sqlParameters.add(yearOfExp);
+		
+		logger.debug("Executing doctor insert query: {} with params : [{}]", doctorSelectQuery,
+				sqlParameters.toArray());
+		
+		List<DoctorDetail> doctorData = jdbcTemplate.query(doctorSelectQuery,new Object[]{doctorId,department,yearOfExp},new DoctorMapper());
+		return doctorData;
+	}
 
 }

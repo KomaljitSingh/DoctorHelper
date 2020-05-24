@@ -55,7 +55,7 @@ public class DoctorDetail {
 		this.gender = gender;
 		this.status = status;
 		this.address = address;
-		Specialist = specialist;
+		this.Specialist = specialist;
 		this.yearOfExperience = yearOfExperience;
 	}
 

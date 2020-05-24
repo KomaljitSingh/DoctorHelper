@@ -3,6 +3,8 @@
  */
 package com.study.doctorhelper.service;
 
+import java.util.List;
+
 import com.study.doctorhelper.model.DoctorDetail;
 
 /**
@@ -19,4 +21,6 @@ public interface DoctorRepository {
 	 * @param doctorDetail
 	 */
 	public void saveDoctorDetails(DoctorDetail doctorDetail);
+	
+	public List<DoctorDetail> getDoctorDetail(int doctorId,String department,int yearOfExp);
 }
