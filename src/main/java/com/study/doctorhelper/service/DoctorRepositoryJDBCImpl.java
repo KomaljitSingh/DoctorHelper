@@ -80,7 +80,7 @@ public class DoctorRepositoryJDBCImpl implements DoctorRepository {
 		logger.debug("Executing doctor insert query: {} with params : [{}]", doctorSelectQuery,
 				sqlParameters.toArray());
 		
-		List<DoctorDetail> doctorData = jdbcTemplate.query(doctorSelectQuery,new Object[]{doctorId,department,yearOfExp},new DoctorMapper());
+		List<DoctorDetail> doctorData = jdbcTemplate.query(doctorSelectQuery,new Object[]{sqlParameters.toArray()},new DoctorMapper());
 		return doctorData;
 	}
 
