@@ -23,4 +23,6 @@ public interface DoctorRepository {
 	public void saveDoctorDetails(DoctorDetail doctorDetail);
 	
 	public List<DoctorDetail> getDoctorDetail(int doctorId,String department,int yearOfExp);
+	
+	public boolean isValidDocotor(String email, String password);
 }

@@ -12,8 +12,9 @@ import com.study.doctorhelper.model.DoctorDetail;
 import com.study.doctorhelper.service.DoctorRepository;
 
 /**
- * This class is built to maintain all the doctor detail processing orchestration and
- * business logic. It represents the internal API for doctor-helper service.
+ * This class is built to maintain all the doctor detail processing
+ * orchestration and business logic. It represents the internal API for
+ * doctor-helper service.
  *
  * @author Komaljit.Singh
  *
@@ -22,31 +23,39 @@ import com.study.doctorhelper.service.DoctorRepository;
 public class DoctorProcessor {
 
 	private static final Logger logger = LoggerFactory.getLogger(DoctorController.class);
-	
+
 	@Autowired
 	private DoctorRepository doctorRepository;
 
 	public DoctorProcessor(DoctorRepository doctorRepository) {
-		
+
 		this.doctorRepository = doctorRepository;
 	}
-	
+
 	/**
 	 * Method to process the doctor details to save.
 	 * 
 	 * @param doctorDetail
 	 */
-	public void saveDoctorDetail(DoctorDetail doctorDetail){
-		
-		logger.info("save doctor details is called with request as: {} ",doctorDetail);
-		
+	public void saveDoctorDetail(DoctorDetail doctorDetail) {
+
+		logger.info("save doctor details is called with request as: {} ", doctorDetail);
+
 		doctorRepository.saveDoctorDetails(doctorDetail);
 	}
-	
-public List<DoctorDetail> getDoctorDetail(int doctorId,String department,int yearOfExp){
-		
+
+	public List<DoctorDetail> getDoctorDetail(int doctorId, String department, int yearOfExp) {
+
 		logger.info("save doctor details is called with request as: {} ");
-		
-		return (List<DoctorDetail>) doctorRepository.getDoctorDetail(doctorId,department,yearOfExp);
+
+		return (List<DoctorDetail>) doctorRepository.getDoctorDetail(doctorId, department, yearOfExp);
 	}
+
+	public boolean validateDoctor(String email, String password) {
+
+		logger.info("validate doctor service is called ");
+
+		return doctorRepository.isValidDocotor(email, password);
+	}
+
 }

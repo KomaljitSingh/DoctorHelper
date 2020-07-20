@@ -28,20 +28,22 @@ public class DoctorMapper implements RowMapper{
 		doctor.setMobileNo(rs.getString("phone_no"));
 		doctor.setEmail(rs.getString("email"));
 		doctor.setDepartment(rs.getString("department"));
-		String[] address = rs.getString("address").split(",");
-		Address addressObj = new Address("",address[0],address[1],Integer.parseInt(address[3]),address[2]);
-		doctor.setAddress(addressObj);
 		doctor.setQualification(rs.getString("qualification"));
 		doctor.setSpecialist(rs.getString("specialist"));
 		doctor.setYearOfExperience(rs.getInt("year_of_experirence"));
+		LocalDateTime localDateTime = rs.getTimestamp("dob").toLocalDateTime();
+		ZonedDateTime date = localDateTime.atZone(ZoneId.systemDefault());
+		doctor.setDob(date);
+		doctor.setPassword("password");
 		String gender = rs.getString("gender");
 		if(gender.equals("MALE"))
 			doctor.setGender(Gender.MALE);
 		else
 			doctor.setGender(Gender.FEMALE);
-		LocalDateTime localDateTime = rs.getTimestamp("dob").toLocalDateTime();
-		ZonedDateTime date = localDateTime.atZone(ZoneId.systemDefault());
-		doctor.setDob(date);
+		String[] address = rs.getString("address").split(",");
+		Address addressObj = new Address("",address[0],address[1],Integer.parseInt(address[3]),address[2]);
+		doctor.setAddress(addressObj);
+		
 		return doctor;
 	}
 
