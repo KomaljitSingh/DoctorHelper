@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class DoctorHelperApplication {
@@ -18,6 +19,12 @@ public class DoctorHelperApplication {
 		ApplicationContext ctx = SpringApplication.run(DoctorHelperApplication.class, args);
 		System.out.println("application context is -------  "+ctx);
 		
+		
+//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16); // Strength set as 16
+//        String encodedPassword = encoder.encode("UserPassword");
+//        System.out.println("BCryptPasswordEncoder");
+//        System.out.println(encodedPassword);
+//        System.out.println("\n");
 	}
 
 }

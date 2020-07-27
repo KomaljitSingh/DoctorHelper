@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,9 +52,10 @@ public class DoctorController {
 	//@CrossOrigin(origins="http://localhost:4200")
 	@PostMapping("/save")
 	public ResponseEntity<Boolean> saveDoctorDetail(@RequestBody final DoctorDetail doctorDetail) {
-
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+		doctorDetail.setPassword(encoder.encode(doctorDetail.getPassword()));
 		logger.info("A request for save doctor detail is in proccess",doctorDetail);
-		//doctorDetail.setPassword(bCryptPasswordEncoder.encode(doctorDetail.getPassword()));
 		doctorProcessor.saveDoctorDetail(doctorDetail);
 		return ResponseEntity.status(HttpStatus.OK).body(true);
 	}
