@@ -5,7 +5,9 @@ package com.study.doctorhelper.service;
 
 import java.util.List;
 
+import com.study.doctorhelper.exception.ExceptionHandler;
 import com.study.doctorhelper.model.DoctorDetail;
+import com.study.doctorhelper.model.PatientDetail;
 
 /**
  * Interface to DoctorRepositoryJDBCImpl service end point. This interface provides the
@@ -25,4 +27,9 @@ public interface DoctorRepository {
 	public List<DoctorDetail> getDoctorDetail(int doctorId,String department,int yearOfExp);
 	
 	public boolean isValidDocotor(String email, String password);
+
+	public List<PatientDetail> getAppointmentDetail(int appointmentStatus,int doctorId) throws ExceptionHandler;
+	
+	public void updateAppointmentStatus(int doctorId,int appointmentStatus,int patientId);
+
 }

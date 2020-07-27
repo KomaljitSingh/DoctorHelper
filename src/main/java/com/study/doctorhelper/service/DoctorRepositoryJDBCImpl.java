@@ -13,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.study.doctorhelper.exception.ExceptionHandler;
+import com.study.doctorhelper.exception.ExceptionType;
 import com.study.doctorhelper.model.Address;
 import com.study.doctorhelper.model.DoctorDetail;
+import com.study.doctorhelper.model.PatientDetail;
 
 /**
  * This class is used to interact with Doctor DataBase for DoctorDetails
@@ -84,8 +87,28 @@ public class DoctorRepositoryJDBCImpl implements DoctorRepository {
 				new DoctorMapper());
 		return doctorData;
 	}
+	
+	
+	public List<PatientDetail> getAppointmentDetail(int appointmentStatus,int doctorId) throws ExceptionHandler{
+		List<PatientDetail> patientData = new ArrayList<PatientDetail>();
+		try{
+			
+			String getAppointmentQuery = "SELECT P.PATIENTID,P.NAME,P.PHONE_NO,P.EMAIL,"
+				+ "P.DOB,P.PASSWORD,P.GENDER,P.STATUS,P.ADDRESS,A.APPOINTMENTID,A.APPOINTMENT_STATUS,A.APPOINTMENT_DATE FROM PATIENT P INNER JOIN APPOINTMENT A"
+				+ " ON  A.PATIENTID = P.PATIENTID WHERE A.APPOINTMENT_STATUS = ? AND A.DOCTORID =  ?  ";
+		
+		logger.debug("Executing doctor get appointment query: {} with params : [{}]", appointmentStatus,
+				doctorId);
+		
+		 patientData  = jdbcTemplate.query(getAppointmentQuery,new Object[]{appointmentStatus,doctorId},new PatientMapper());
+		}catch(Exception err){
+			throw new ExceptionHandler(ExceptionType.DBEXCEPTION.toString(),err);
+		}
+		return patientData;
+	}
 
 	@Override
+
 	public boolean isValidDocotor(String email, String password) {
 		String validateDoctorSelectQuery = "SELECT * FROM DOCTOR WHERE EMAIL = ? AND PASSWORD = ? ";
 
@@ -100,5 +123,16 @@ public class DoctorRepositoryJDBCImpl implements DoctorRepository {
 				new DoctorMapper());
 		boolean isValid= doctorData!=null;
 		return isValid;
+	}
+
+	public void updateAppointmentStatus(int doctorId, int appointmentStatus,int patientId) {
+		// TODO Auto-generated method stub
+		String updateAppointmentQuery = " UPDATE APPOINTMENT SET APPOINTMENT_STATUS = ? WHERE DOCTORID = ? AND PATIENTID = ?";
+		List<Object> sqlParameters = new ArrayList<>();
+		sqlParameters.add(appointmentStatus);
+		sqlParameters.add(doctorId);
+		sqlParameters.add(patientId);
+		jdbcTemplate.update(updateAppointmentQuery,sqlParameters.toArray());
+
 	}
 }

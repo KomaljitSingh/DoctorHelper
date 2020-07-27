@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.study.doctorhelper.controller.DoctorController;
+import com.study.doctorhelper.exception.ExceptionHandler;
 import com.study.doctorhelper.model.DoctorDetail;
+import com.study.doctorhelper.model.PatientDetail;
 import com.study.doctorhelper.service.DoctorRepository;
 
 /**
@@ -44,7 +46,8 @@ public class DoctorProcessor {
 		doctorRepository.saveDoctorDetails(doctorDetail);
 	}
 
-	public List<DoctorDetail> getDoctorDetail(int doctorId, String department, int yearOfExp) {
+	public List<DoctorDetail> getDoctorDetail(int doctorId,String department,int yearOfExp){
+			
 
 		logger.info("save doctor details is called with request as: {} ");
 
@@ -56,6 +59,17 @@ public class DoctorProcessor {
 		logger.info("validate doctor service is called ");
 
 		return doctorRepository.isValidDocotor(email, password);
+	}
+
+	
+	public List<PatientDetail> getAppointmentDetail(int appointmentStatus,int doctorId) throws ExceptionHandler{
+		logger.info("get appointment details for doctor"+appointmentStatus,doctorId);
+		return doctorRepository.getAppointmentDetail(appointmentStatus,doctorId);
+	}
+	
+	public void updateAppointmentStatus(int doctorId,int appointmentStatus,int patientId){
+		logger.info("update appointmennt status");
+		doctorRepository.updateAppointmentStatus(doctorId,appointmentStatus,patientId);
 	}
 
 }
